@@ -118,6 +118,7 @@ in
     minecraft
     pavucontrol
     tdesktop
+    htop
   ];
  
   services.gnome.gnome-keyring = {
