@@ -58,6 +58,7 @@
         vscodevim.vim
         yzhang.markdown-all-in-one
         tabnine.tabnine-vscode
+        matklad.rust-analyzer
       ];
     };
   };

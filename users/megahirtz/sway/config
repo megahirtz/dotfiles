@@ -25,7 +25,11 @@ set $menu wofi --show run
 # Default wallpaper (more resolutions are available in /run/current-system/sw/share/backgrounds/sway/)
 output * bg /home/megahirtz/.config/sway/assets/wallpaper.jpg fill
 
-output eDP-1 scale 1.5
+output DP-4 resolution 2560x1440 position 0,0
+
+output DP-3 resolution 2560x1440 position 0,0
+
+output eDP-1 scale 1.5 position 2560,0
 #
 # Example configuration:
 #
