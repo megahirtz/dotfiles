@@ -119,6 +119,7 @@ in
     pavucontrol
     tdesktop
     htop
+    polymc
   ];
  
   services.gnome.gnome-keyring = {
