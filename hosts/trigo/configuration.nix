@@ -87,6 +87,7 @@ in
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" ]; })
     font-awesome_5
+    comic-mono
   ];
   
   environment.systemPackages = with pkgs; [
