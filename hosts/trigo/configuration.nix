@@ -71,6 +71,8 @@ in
 
   nixpkgs.config.allowUnfree = true;  
   
+  nix.settings.trusted-users = [ "root" "megahirtz" ];
+ 
   networking.hostName = "trigo"; # Define your hostname.
   time.timeZone = "America/Los_Angeles";
 
@@ -81,7 +83,7 @@ in
   users.users.megahirtz = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "adbuser" ]; # Enable ‘sudo’ for the user.
   };
 
   fonts.fonts = with pkgs; [
@@ -89,6 +91,9 @@ in
     font-awesome_5
     comic-mono
   ];
+
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
   
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -121,6 +126,9 @@ in
     tdesktop
     htop
     polymc
+    cachix
+    lutris
+    virt-manager
   ];
  
   services.gnome.gnome-keyring = {
@@ -143,6 +151,8 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
   };
+
+  programs.adb.enable = true;
   
   nixpkgs.overlays = [
     (self: super: {
