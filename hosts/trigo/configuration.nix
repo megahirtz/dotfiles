@@ -83,7 +83,7 @@ in
   users.users.megahirtz = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "adbuser" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "adbuser" "libvirtd" "kvm" "qemu-libvirtd" ]; # Enable ‘sudo’ for the user.
   };
 
   fonts.fonts = with pkgs; [
@@ -92,7 +92,19 @@ in
     comic-mono
   ];
 
-  virtualisation.libvirtd.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    libvirtd.qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true;
+      };
+    };
+  }; 
+ 
+  environment.sessionVariables.LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
   programs.dconf.enable = true;
   
   environment.systemPackages = with pkgs; [
@@ -129,6 +141,8 @@ in
     cachix
     lutris
     virt-manager
+    win-virtio
+    zoom-us
   ];
  
   services.gnome.gnome-keyring = {
