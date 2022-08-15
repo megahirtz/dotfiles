@@ -29,6 +29,8 @@ output DP-4 resolution 2560x1440 position 0,0
 
 output DP-3 resolution 2560x1440 position 0,0
 
+output DP-2 resolution 2560x1440 position 0,0
+
 output eDP-1 scale 1.5 position 2560,0
 #
 # Example configuration:

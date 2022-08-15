@@ -80,6 +80,8 @@ in
 
   programs.zsh.enable = true;
 
+  programs.nm-applet.enable = true;
+
   users.users.megahirtz = {
     isNormalUser = true;
     shell = pkgs.zsh;
