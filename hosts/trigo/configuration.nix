@@ -145,6 +145,7 @@ in
     virt-manager
     win-virtio
     zoom-us
+    mach-nix
   ];
  
   services.gnome.gnome-keyring = {
