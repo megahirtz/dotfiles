@@ -85,7 +85,7 @@ in
   users.users.megahirtz = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "adbuser" "libvirtd" "kvm" "qemu-libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "adbuser" "libvirtd" "kvm" "qemu-libvirtd" "dialout" ]; # Enable ‘sudo’ for the user.
   };
 
   fonts.fonts = with pkgs; [
@@ -94,18 +94,19 @@ in
     comic-mono
   ];
 
-  virtualisation = {
-    libvirtd.enable = true;
-    libvirtd.qemu = {
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
       package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
       ovmf = {
+        enable = true;
+        packages = [ pkgs.OVMFFull.fd ];
+      };
+      swtpm = {
         enable = true;
       };
     };
-  }; 
- 
+  };
   environment.sessionVariables.LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
   programs.dconf.enable = true;
   
@@ -145,7 +146,7 @@ in
     virt-manager
     win-virtio
     zoom-us
-    mach-nix
+    appflowy
   ];
  
   services.gnome.gnome-keyring = {
@@ -181,6 +182,8 @@ in
       );
     })
   ];
+
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
