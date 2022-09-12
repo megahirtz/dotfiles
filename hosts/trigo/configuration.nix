@@ -147,6 +147,7 @@ in
     win-virtio
     zoom-us
     appflowy
+    onlyoffice
   ];
  
   services.gnome.gnome-keyring = {
