@@ -146,13 +146,15 @@ in
     virt-manager
     win-virtio
     zoom-us
-    appflowy
     onlyoffice-bin
   ];
  
   services.gnome.gnome-keyring = {
     enable = true;
   };
+
+  services.fwupd.enable = true;
+  services.udisks2.enable = true;
  
   hardware.bluetooth.enable = true;
   networking.networkmanager.enable = true;
