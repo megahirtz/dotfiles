@@ -147,6 +147,10 @@ in
     win-virtio
     zoom-us
     onlyoffice-bin
+    protontricks
+    gnome.zenity
+    p7zip
+    xdg-utils
   ];
  
   services.gnome.gnome-keyring = {
