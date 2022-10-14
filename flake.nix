@@ -25,18 +25,25 @@
         trigo = lib.nixosSystem {
           inherit system;
           modules = [ 
+            {
+              environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+              nix.nixPath = ["nixpkgs=/etc/nix/inputs/nixpkgs"];
+            }
             ./hosts/trigo/configuration.nix 
             nixos-hardware.nixosModules.framework
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.megahirtz = {
-                imports = [ ./users/megahirtz/home.nix ];
-              };
-            }
           ];
         };
       };
+      homeConfigurations.megahirtz = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          #{
+          #  xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+          #  home.sessionVariables.NIX_PATH = "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\
+#{NIX_PATH:+:$NIX_PATH}";
+          #}
+          ./users/megahirtz/home.nix
+        ];
+      };
     };
-
 }

@@ -39,6 +39,15 @@ let
         gsettings set $gnome_schema gtk-theme 'Dracula'
         '';
   };
+    swayConfig = pkgs.writeText "greetd-sway-config" ''
+    # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
+    exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
+    bindsym Mod4+shift+e exec swaynag \
+      -t warning \
+      -m 'What do you want to do?' \
+      -b 'Poweroff' 'systemctl poweroff' \
+      -b 'Reboot' 'systemctl reboot'
+  '';
 
 in
 {
@@ -47,7 +56,7 @@ in
       ./hardware-configuration.nix
     ];
   nix = {
-    package = pkgs.nixFlakes; # or versioned attributes like nix_2_7
+    package = pkgs.nixVersions.stable; # or versioned attributes like nix_2_7
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -82,10 +91,40 @@ in
 
   programs.nm-applet.enable = true;
 
+  #greetd nonsense
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
+      };
+    };
+  };
+
+  environment.etc = {
+    "greetd/environments".text = ''
+      sway
+      zsh
+    '';
+    #"greetd/gtkgreet.css".text = ''
+    #  window {
+    #     background-image: url("file:///usr/share/backgrounds/default.png");
+    #     background-size: cover;
+    #     background-position: center;
+    #  }
+    #
+    #  box#body {
+    #     background-color: rgba(50, 50, 50, 0.5);
+    #     border-radius: 10px;
+    #     padding: 50px;
+    #  }
+    #''; 
+  };
+
   users.users.megahirtz = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "adbuser" "libvirtd" "kvm" "qemu-libvirtd" "dialout" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "adbuser" "libvirtd" "kvm" "qemu-libvirtd" "dialout" "video" ]; # Enable ‘sudo’ for the user.
   };
 
   fonts.fonts = with pkgs; [
@@ -123,7 +162,7 @@ in
     chromium
     glib                      # gsettings
     dracula-theme             # gtk theme
-    gnome3.adwaita-icon-theme # default gnome cursors
+    gnome.adwaita-icon-theme # default gnome cursors
     swaylock-effects
     swayidle
     grim                      # screenshot functionality
@@ -164,7 +203,8 @@ in
   networking.networkmanager.enable = true;
 
   programs.steam.enable = true; 
- 
+  programs.light.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
