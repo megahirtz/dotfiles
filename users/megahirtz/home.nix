@@ -18,9 +18,9 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  
-  nixpkgs.config.allowUnfree = true;
 
+  home.sessionVariables.NIX_PATH = "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}"; 
+ 
   programs = {
     zsh = {
       enable = true;
