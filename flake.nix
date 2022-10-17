@@ -9,9 +9,10 @@
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      agenix.url = "github:ryantm/agenix";
     };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, agenix, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -32,18 +33,33 @@
             }
             ./hosts/trigo/configuration.nix 
             nixos-hardware.nixosModules.framework
+            agenix.nixosModule
+          ];
+        };
+        nixos = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/nixos/configuration.nix
           ];
         };
       };
-      homeConfigurations.megahirtz = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          {
-            xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
-            nix.registry.nixpkgs.flake = nixpkgs;
-          }
-          ./users/megahirtz/home.nix
-        ];
+      homeConfigurations = {
+        megahirtz = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            {
+              xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+              nix.registry.nixpkgs.flake = nixpkgs;
+            }
+            ./users/megahirtz/home.nix
+          ];
+        };
+        k1ngst0n = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./users/k1ngst0n/home.nix
+          ];
+        };
       };
     };
 }
