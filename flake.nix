@@ -40,6 +40,7 @@
           inherit system;
           modules = [
             ./hosts/nixos/configuration.nix
+            agenix.nixosModule
           ];
         };
       };
