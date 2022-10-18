@@ -1,10 +1,4 @@
-{config, pkgs, age, ...}:
-let
-{
-  age.secrets.nextcloud-admin.file = "./secrets/nextcloud-admin.age";
-  age.secrets.nextcloud-db.file = "./secrets/nextcloud-db.age";
-}
-in
+{config, pkgs, ...}:
 {
   services.nextcloud = {
     enable = true;
@@ -20,9 +14,9 @@ in
       dbuser = "nextcloud";
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
-      dbpassFile = config.age.secrets.nextcloud-admin.path;
+      dbpassFile = "${config.age.secrets.nextcloud-admin.path}";
 
-      adminpassFile = config.age.secrets.nextcloud-db.path;
+      adminpassFile = "${config.age.secrets.nextcloud-db.path}";
       adminuser = "admin";
     };
   };

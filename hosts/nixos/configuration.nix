@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, age, ... }:
+{ config, pkgs, agenix, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -46,8 +46,18 @@
     # Think about enabling Wireguard Later
   };
   
-  age.secrets.vaultwarden-env.file = "./secrets/vaultwarden-env.age"
-  
+  age.secrets.vaultwarden-env.file = ./secrets/vaultwarden-env.age; 
+  age.secrets.nextcloud-db = {
+    file = ./secrets/nextcloud-db.age;
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
+  age.secrets.nextcloud-admin = {
+    file = ./secrets/nextcloud-admin.age;
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
+
   services.vaultwarden = {
     enable = true;
     backupDir = "/mnt/vaultwarden";
