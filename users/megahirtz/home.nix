@@ -26,7 +26,9 @@
       enable = true;
       shellAliases = {
         ll = "ls -l";
-        update = "sudo nixos-rebuild switch -I nixos-config='/home/megahirtz/.dotfiles/hosts/trigo/configuration.nix";
+        update = "/home/megahirtz/dotfiles/update.sh";
+        auser = "/home/megahirtz/dotfiles/apply-user.sh megahirtz";
+        asystem = "/home/megahirt/dotfiles/apply-system.sh trigo"
       };
       history = {
         size = 10000;
