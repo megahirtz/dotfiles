@@ -28,7 +28,7 @@
         ll = "ls -l";
         update = "/home/megahirtz/dotfiles/update.sh";
         auser = "/home/megahirtz/dotfiles/apply-user.sh megahirtz";
-        asystem = "/home/megahirt/dotfiles/apply-system.sh trigo"
+        asystem = "/home/megahirt/dotfiles/apply-system.sh trigo";
       };
       history = {
         size = 10000;
