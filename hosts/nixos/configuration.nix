@@ -71,10 +71,8 @@
       SIGNUPS_VERIFY = true;
       DOMAIN = "https://vaultwarden.megahirtz.run";
       YUBICO_SERVER = "https://api.yubico.com/wsapi/2.0/verify";
-      SMTP_HOST = "smtp.mailgun.org";
       SMTP_FROM = "vaultwarden@megahirtz.run";
       SMTP_FROM_NAME = "Vaultwarden";
-      SMTP_PORT = 587;
       SMTP_SSL = true;
       SMTP_AUTH = "Login";
       SMTP_TIMEOUT = 15;
