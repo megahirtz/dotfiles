@@ -61,9 +61,6 @@
     owner = "nextcloud";
     group = "nextcloud";
   };
-  age.secrets.email-address = {
-    file = ./secrets/email-address.age;
-  };
 
   services.vaultwarden = {
     enable = true;
@@ -89,7 +86,7 @@
   };
 
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = k1ngst0n@protonmail.com;
+  security.acme.defaults.email = "k1ngst0n@protonmail.com";
   security.acme.certs = {
 
     "vaultwarden.megahirtz.run" = {
