@@ -179,7 +179,7 @@ in
     pavucontrol
     tdesktop
     htop
-    polymc
+    prismlauncher
     cachix
     lutris
     virt-manager
