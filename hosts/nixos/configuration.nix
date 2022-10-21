@@ -89,7 +89,7 @@
   };
 
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = builtins.readFile config.age.secrets.email-address.path;
+  security.acme.defaults.email = k1ngst0n@protonmail.com;
   security.acme.certs = {
 
     "vaultwarden.megahirtz.run" = {

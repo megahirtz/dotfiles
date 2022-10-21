@@ -11,5 +11,4 @@ in
   "nextcloud-admin.age".publicKeys = users ++ systems;
   "nextcloud-db.age".publicKeys = users ++ systems;
   "vaultwarden-env.age".publicKeys = users ++ systems;
-  "email-address.age".publicKeys = users ++ systems;
 }
