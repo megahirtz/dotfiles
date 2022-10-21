@@ -46,7 +46,11 @@
     # Think about enabling Wireguard Later
   };
   
-  age.secrets.vaultwarden-env.file = ./secrets/vaultwarden-env.age; 
+  age.secrets.vaultwarden-env = {
+    file = ./secrets/vaultwarden-env.age;
+    owner = "vaultwarden";
+    group = "vaultwarden";
+  }; 
   age.secrets.nextcloud-db = {
     file = ./secrets/nextcloud-db.age;
     owner = "nextcloud";
@@ -56,6 +60,9 @@
     file = ./secrets/nextcloud-admin.age;
     owner = "nextcloud";
     group = "nextcloud";
+  };
+  age.secrets.email-address = {
+    file = ./secrets/email-address;
   };
 
   services.vaultwarden = {
@@ -82,7 +89,7 @@
   };
 
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = "k1ngst0n@protonmail.com";
+  security.acme.defaults.email = builtins.readFile config.age.secrets.email-address.path;
   security.acme.certs = {
 
     "vaultwarden.megahirtz.run" = {
