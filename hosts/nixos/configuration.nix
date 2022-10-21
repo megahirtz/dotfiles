@@ -62,7 +62,7 @@
     group = "nextcloud";
   };
   age.secrets.email-address = {
-    file = ./secrets/email-address;
+    file = ./secrets/email-address.age;
   };
 
   services.vaultwarden = {
