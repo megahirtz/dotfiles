@@ -170,6 +170,7 @@ in
     wl-clipboard
     waybar
     wofi
+    yofi
     imagemagick
     bemenu
     discord
