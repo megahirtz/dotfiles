@@ -48,6 +48,7 @@ let
       -b 'Poweroff' 'systemctl poweroff' \
       -b 'Reboot' 'systemctl reboot'
   '';
+  albert_autostart = (pkgs.makeAutostartItem { name = "albert"; package = pkgs.albert; });
 
 in
 {
@@ -171,6 +172,8 @@ in
     waybar
     wofi
     albert
+    #ulauncher
+    albert_autostart
     imagemagick
     bemenu
     discord
