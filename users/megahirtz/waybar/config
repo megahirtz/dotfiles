@@ -94,7 +94,8 @@
 "sway/language": {
 "format": " {}",
 "min-length": 5,
-"tooltip": false
+"tooltip": false,
+"on-click": ""
 },
 
 "memory": {
@@ -102,9 +103,9 @@
 "format": " {}%", // Icon: memory
 "states": {
 "warning": 70,
-"critical": 90,
+"critical": 90
+},
 "on-click": ""
-}
 },
 
 "network": {
