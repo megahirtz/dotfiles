@@ -78,6 +78,10 @@
       source = ./swaylock;
       recursive = true;
     };
+    ".config/mako" = {
+      source = ./mako;
+      recursive = true;
+    };
   };
 
   home.packages = with pkgs ; [

@@ -67,6 +67,7 @@ in
     pinentry
     xdg-utils
     mako
+    libnotify
   ];
 
   programs = {
