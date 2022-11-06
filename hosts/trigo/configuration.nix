@@ -4,41 +4,6 @@
 
 { config, pkgs, lib, ... }:
 let
-  # bash script to let dbus know about important env variables and
-  # propogate them to relevent services run at the end of sway config
-  # see
-  # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/"It-doesn't-work"-Troubleshooting-Checklist
-  dbus-sway-environment = pkgs.writeTextFile {
-    name = "dbus-sway-environment";
-    destination = "/bin/dbus-sway-environment";
-    executable = true;
-
-    text = ''
-  dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-  systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-  systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      '';
-  };
-
-  # currently, there is some friction between sway and gtk:
-  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
-  # the suggested way to set gtk settings is with gsettings
-  # for gsettings to work, we need to tell it where the schemas are
-  # using the XDG_DATA_DIR environment variable
-  # run at the end of sway config
-  configure-gtk = pkgs.writeTextFile {
-      name = "configure-gtk";
-      destination = "/bin/configure-gtk";
-      executable = true;
-      text = let
-        schema = pkgs.gsettings-desktop-schemas;
-        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-      in ''
-        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-        gnome_schema=org.gnome.desktop.interface
-        gsettings set $gnome_schema gtk-theme 'Dracula'
-        '';
-  };
     swayConfig = pkgs.writeText "greetd-sway-config" ''
     # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
     exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
@@ -48,13 +13,13 @@ let
       -b 'Poweroff' 'systemctl poweroff' \
       -b 'Reboot' 'systemctl reboot'
   '';
-  albert_autostart = (pkgs.makeAutostartItem { name = "albert"; package = pkgs.albert; });
 
 in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./swaywm.nix
     ];
   nix = {
     package = pkgs.nixVersions.stable; # or versioned attributes like nix_2_7
@@ -155,29 +120,7 @@ in
     wget
     firefox-wayland
     git
-    alacritty           # gpu accelerated terminal
-    sway
-    dbus-sway-environment
-    configure-gtk
-    wayland
-    chromium
-    glib                      # gsettings
-    dracula-theme             # gtk theme
-    gnome.adwaita-icon-theme # default gnome cursors
-    swaylock-effects
-    swayidle
-    grim                      # screenshot functionality
-    slurp                     # screenshot functionality
-    wl-clipboard
-    waybar
-    wofi
-    albert
-    #ulauncher
-    albert_autostart
-    imagemagick
-    bemenu
     discord
-    bitwarden-cli
     jq
     minecraft
     pavucontrol
@@ -193,13 +136,9 @@ in
     protontricks
     gnome.zenity
     p7zip
-    xdg-utils
   ];
  
-  services.gnome.gnome-keyring = {
-    enable = true;
-  };
-
+  # Firmware updates
   services.fwupd.enable = true;
   services.udisks2.enable = true;
  
@@ -207,7 +146,6 @@ in
   networking.networkmanager.enable = true;
 
   programs.steam.enable = true; 
-  programs.light.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -215,11 +153,6 @@ in
     pulse.enable = true;
   };
 
-  # enable sway window manager
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
 
   programs.adb.enable = true;
   

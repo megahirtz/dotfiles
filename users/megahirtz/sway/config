@@ -201,7 +201,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
+bindsym $mod+Shift+p exec $grimshot --notify save screen
 default_border pixel 2
 client.focused "#F2A9B4" "#F2A9B4" "#F2A9B4" "#F2A9B4"
 
@@ -218,4 +218,5 @@ include /etc/sway/config.d/*
 
 exec dbus-sway-environment
 exec configure-gtk
+exec mako
 exec albert
