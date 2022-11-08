@@ -201,7 +201,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym $mod+Shift+p exec $grimshot --notify save screen
+bindsym $mod+Shift+p exec grimshot --notify save screen
 default_border pixel 2
 client.focused "#F2A9B4" "#F2A9B4" "#F2A9B4" "#F2A9B4"
 

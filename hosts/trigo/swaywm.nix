@@ -68,6 +68,7 @@ in
     xdg-utils
     mako
     libnotify
+    imv
   ];
 
   programs = {

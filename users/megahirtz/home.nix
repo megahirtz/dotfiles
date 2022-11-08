@@ -84,6 +84,48 @@
     };
   };
 
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "application/pdf" = "firefox.desktop";
+      "image/png" = [
+        "imv.desktop"
+      ];
+      "x-scheme-handler/tg" = [
+        "userapp-Telegram Desktop-JT84K1.desktop"
+        "userapp-Telegram Desktop-L5Q4O1.desktop"
+      ];
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/chrome" = "firefox.desktop";
+      "text/html" = "firefox.desktop";
+      "application/x-extension-htm" = "firefox.desktop";
+      "application/x-extension-html" = "firefox.desktop";
+      "application/x-extension-shtml" = "firefox.desktop";
+      "application/xhtml+xml" = "firefox.desktop";
+      "application/x-extension-xhtml" = "firefox.desktop";
+      "application/x-extension-xht" = "firefox.desktop";
+    };
+    defaultApplications = {
+      "application/pdf" = "firefox.desktop";
+      "image/png" = [
+        "imv.desktop"
+      ];
+      "x-scheme-handler/tg" = "userapp-Telegram Desktop-L5Q4O1.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/chrome" = "firefox.desktop";
+      "text/html" = "firefox.desktop";
+      "application/x-extension-htm" = "firefox.desktop";
+      "application/x-extension-html" = "firefox.desktop";
+      "application/x-extension-shtml" = "firefox.desktop";
+      "application/xhtml+xml" = "firefox.desktop";
+      "application/x-extension-xhtml" = "firefox.desktop";
+      "application/x-extension-xht" = "firefox.desktop";
+      "x-scheme-handler/nxm" = "modorganizer2-nxm-handler.desktop";
+    };
+  };
+
   home.packages = with pkgs ; [
   ];
 }
