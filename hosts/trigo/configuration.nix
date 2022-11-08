@@ -20,6 +20,8 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./swaywm.nix
+      ./mail.nix
+      ./emacs.nix
     ];
   nix = {
     package = pkgs.nixVersions.stable; # or versioned attributes like nix_2_7
