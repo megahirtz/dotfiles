@@ -3,7 +3,10 @@
   environment.systemPackages = with pkgs; [
     # required dependencies
     git
-    emacs    # Emacs 27.2
+    #emacs    # Emacs 27.2
+    ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [
+      epkgs.emacs-libvterm
+    ]))
     ripgrep
     # optional dependencies
     coreutils # basic GNU utilities
