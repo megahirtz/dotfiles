@@ -220,3 +220,4 @@ exec dbus-sway-environment
 exec configure-gtk
 exec mako
 exec albert
+exec emacs --daemon

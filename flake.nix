@@ -13,9 +13,12 @@
         url = "github:ryantm/agenix";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      nix-colors = {
+        url = "github:misterio77/nix-colors";
+      };
     };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, agenix, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, agenix, nix-colors, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -50,6 +53,7 @@
       homeConfigurations = {
         megahirtz = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
+          extraSpecialArgs = { inherit nix-colors; };
           modules = [
             {
               xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;

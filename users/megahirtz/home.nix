@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nix-colors, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -20,7 +20,13 @@
   programs.home-manager.enable = true;
 
   home.sessionVariables.NIX_PATH = "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}"; 
- 
+
+  imports = [
+    nix-colors.homeManagerModule
+  ];
+
+  colorScheme = nix-colors.colorSchemes.dracula;
+
   programs = {
     zsh = {
       enable = true;
@@ -51,6 +57,7 @@
           };
         }
       ];
+      initExtra = "export PATH=/home/megahirtz/.emacs.d/bin/:$PATH";
     };
     vscode = {
       enable = true;

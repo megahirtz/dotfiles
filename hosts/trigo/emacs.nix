@@ -9,5 +9,10 @@
     coreutils # basic GNU utilities
     fd
     clang
+    texlive.combined.scheme-medium
+    direnv
+    cmake
+    #for vterm install
+    gnumake
   ];
 }
