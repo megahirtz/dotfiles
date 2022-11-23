@@ -19,11 +19,10 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  home.sessionVariables.NIX_PATH = "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}"; 
+  home.sessionVariables.NIX_PATH =
+    "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
 
-  imports = [
-    nix-colors.homeManagerModule
-  ];
+  imports = [ nix-colors.homeManagerModule ];
 
   colorScheme = nix-colors.colorSchemes.dracula;
 
@@ -45,19 +44,19 @@
         plugins = [ "git" ];
         theme = "gnzh";
       };
-      plugins = [
-        {
-          # will source zsh-autosuggestions.plugin.zsh
-          name = "zsh-autosuggestions";
-          src = pkgs.fetchFromGitHub {
-            owner = "zsh-users";
-            repo = "zsh-autosuggestions";
-            rev = "v0.4.0";
-            sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
-          };
-        }
-      ];
-      initExtra = "export PATH=/home/megahirtz/.emacs.d/bin/:$PATH";
+      plugins = [{
+        # will source zsh-autosuggestions.plugin.zsh
+        name = "zsh-autosuggestions";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-autosuggestions";
+          rev = "v0.4.0";
+          sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
+        };
+      }];
+      initExtra = ''
+        export PATH=/home/megahirtz/.emacs.d/bin/:$PATH
+        eval "$(direnv hook zsh)"'';
     };
     vscode = {
       enable = true;
@@ -95,9 +94,7 @@
     enable = true;
     associations.added = {
       "application/pdf" = "firefox.desktop";
-      "image/png" = [
-        "imv.desktop"
-      ];
+      "image/png" = [ "imv.desktop" ];
       "x-scheme-handler/tg" = [
         "userapp-Telegram Desktop-JT84K1.desktop"
         "userapp-Telegram Desktop-L5Q4O1.desktop"
@@ -115,9 +112,7 @@
     };
     defaultApplications = {
       "application/pdf" = "firefox.desktop";
-      "image/png" = [
-        "imv.desktop"
-      ];
+      "image/png" = [ "imv.desktop" ];
       "x-scheme-handler/tg" = "userapp-Telegram Desktop-L5Q4O1.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
@@ -133,6 +128,8 @@
     };
   };
 
-  home.packages = with pkgs ; [
-  ];
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
+  home.packages = with pkgs; [ ];
 }
