@@ -4,7 +4,7 @@
 
 { config, pkgs, lib, ... }:
 let
-    swayConfig = pkgs.writeText "greetd-sway-config" ''
+  swayConfig = pkgs.writeText "greetd-sway-config" ''
     # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
     exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -c sway; swaymsg exit"
     bindsym Mod4+shift+e exec swaynag \
@@ -14,15 +14,13 @@ let
       -b 'Reboot' 'systemctl reboot'
   '';
 
-in
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./swaywm.nix
-      ./mail.nix
-      ./emacs.nix
-    ];
+in {
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./swaywm.nix
+    ./mail.nix
+    ./emacs.nix
+  ];
   nix = {
     package = pkgs.nixVersions.stable; # or versioned attributes like nix_2_7
     extraOptions = ''
@@ -35,9 +33,9 @@ in
       automatic = true;
       dates = "monthly";
       options = "--delete-older-than 30d";
-   };
+    };
   };
-  
+
   #system.autoUpgrade = {
   #  enable = true;
   #  channel = "https://nixos.org/channels/nixos-unstable";
@@ -46,10 +44,10 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nixpkgs.config.allowUnfree = true;  
-  
+  nixpkgs.config.allowUnfree = true;
+
   nix.settings.trusted-users = [ "root" "megahirtz" ];
- 
+
   networking.hostName = "trigo"; # Define your hostname.
   time.timeZone = "America/Los_Angeles";
 
@@ -92,7 +90,15 @@ in
   users.users.megahirtz = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "adbuser" "libvirtd" "kvm" "qemu-libvirtd" "dialout" "video" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "adbuser"
+      "libvirtd"
+      "kvm"
+      "qemu-libvirtd"
+      "dialout"
+      "video"
+    ]; # Enable ‘sudo’ for the user.
   };
 
   fonts.fonts = with pkgs; [
@@ -109,14 +115,12 @@ in
         enable = true;
         packages = [ pkgs.OVMFFull.fd ];
       };
-      swtpm = {
-        enable = true;
-      };
+      swtpm = { enable = true; };
     };
   };
   environment.sessionVariables.LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
   programs.dconf.enable = true;
-  
+
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
@@ -138,16 +142,20 @@ in
     protontricks
     gnome.zenity
     p7zip
+    pulseaudio
+    tmux
   ];
- 
+
   # Firmware updates
   services.fwupd.enable = true;
   services.udisks2.enable = true;
- 
+  # Fingerprint Reader support
+  services.fprintd.enable = true;
+
   hardware.bluetooth.enable = true;
   networking.networkmanager.enable = true;
 
-  programs.steam.enable = true; 
+  programs.steam.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -155,17 +163,16 @@ in
     pulse.enable = true;
   };
 
-
   programs.adb.enable = true;
-  
+
   nixpkgs.overlays = [
     (self: super: {
-      discord = super.discord.overrideAttrs (
-        _: { src = builtins.fetchTarball {
+      discord = super.discord.overrideAttrs (_: {
+        src = builtins.fetchTarball {
           url = "https://discord.com/api/download?platform=linux&format=tar.gz";
           sha256 = "0hdgif8jpp5pz2c8lxas88ix7mywghdf9c9fn95n0dwf8g1c1xbb";
-        }; }
-      );
+        };
+      });
     })
   ];
 
