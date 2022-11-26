@@ -1,264 +1,72 @@
 {
-// -------------------------------------------------------------------------
-// Global configuration
-// -------------------------------------------------------------------------
-
-"layer": "top",
-"position": "top",
-//"height": 18,
-
-"modules-left": [
-"sway/mode",
-"sway/workspaces",
-"custom/arrow10",
-"sway/window"
-],
-
-//"modules-center": [
-//"sway/window"
-//],
-
-"modules-right": [
-"custom/arrow1",
-"custom/alsa",
-//"pulseaudio",
-//"sndio",
-"custom/arrow2",
-"network",
-"custom/arrow3",
-"memory",
-"custom/arrow4",
-"cpu",
-"custom/arrow5",
-"temperature",
-"custom/arrow6",
-"sway/language",
-"custom/arrow7",
-"battery",
-"custom/arrow8",
-"tray",
-"clock#date",
-"custom/arrow9",
-"clock#time"
-],
-
-// -------------------------------------------------------------------------
-// Modules
-// -------------------------------------------------------------------------
-
-"battery": {
-"interval": 1,
-"states": {
-"warning": 30,
-"critical": 15
-},
-"format": " {capacity}%", // Icon: bolt
-"format-discharging": "{icon} {capacity}%",
-"format-icons": [
-"",  // Icon: battery-empty
-"", // Icon: battery-quarter
-"", // Icon: battery-half
-"", // Icon: battery-three-quarters
-"" // Icon: battery-full
-],
-"tooltip": false,
-"on-click": ""
-},
-
-"clock#time": {
-"interval": 10,
-"format": "{:%H:%M}",
-"tooltip": false,
-"on-click": ""
-},
-
-"clock#date": {
-"interval": 20,
-"format": "{:%e %b %Y}", // Icon: calendar-alt
-//"tooltip-format": "{:%e %B %Y}"
-"tooltip": false,
-"on-click": ""
-},
-
-"cpu": {
-"interval": 5,
-"tooltip": false,
-"format": " {usage}%", // Icon: microchip
-"states": {
-  "warning": 70,
-  "critical": 90
-},
-"on-click": ""
-},
-
-"sway/language": {
-"format": " {}",
-"min-length": 5,
-"tooltip": false,
-"on-click": ""
-},
-
-"memory": {
-"interval": 5,
-"format": " {}%", // Icon: memory
-"states": {
-"warning": 70,
-"critical": 90
-},
-"on-click": ""
-},
-
-"network": {
-"interval": 5,
-// TODO: format-icons
-"format-wifi": " {essid} ({signalStrength}%)", // Icon: wifi
-//"format-ethernet": " {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
-"format-ethernet": " {ifname}",
-"format-disconnected": "",
-//"tooltip-format": "{ifname}: {ipaddr}",
-"tooltip": false,
-"on-click": ""
-},
-
-"sway/mode": {
-"format": "<span style=\"italic\"> {}</span>", // Icon: expand-arrows-alt
-"tooltip": false
-},
-
-"sway/window": {
-"format": "{}",
-"max-length": 30,
-"tooltip": false
-},
-
-"sway/workspaces": {
-"all-outputs": false,
-"disable-scroll": false,
-"format": "{name}",
-"format-icons": {
-"1:www": "", // Icon: firefox-browser
-"2:mail": "", // Icon: mail
-"3:editor": "", // Icon: code
-"4:terminals": "", // Icon: terminal
-"5:portal": "", // Icon: terminal
-"urgent": "",
-"focused": "",
-"default": ""
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    // "width": 1280, // Waybar width
+    // "height": 5,
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["custom/music"],
+    "modules-right": ["pulseaudio", "backlight", "battery", "clock", "tray", "custom/lock", "custom/power"],
+    "sway/workspaces": {
+         "disable-scroll": true,
+         "sort-by-name": true,
+         "format": " {icon} ",
+         "format-icons": {
+             "default": "",
+         },
+     },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10,
+    },
+    "custom/music": {
+        "format": "  {}",
+        "escape": true,
+        "interval": 5,
+        "tooltip": false,
+        "exec": "playerctl metadata --format='{{ title }}'",
+        "on-click": "playerctl play-pause",
+        "max-length": 50
+    },
+    "clock": {
+        "timezone": "America/Los_Angeles",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": " {:%d/%m/%Y}",
+        "format": " {:%H:%M}"
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "",
+        "format-plugged": "",
+        "format-alt": "{icon}",
+        "format-icons": ["", "",  "", "", "", "", "", "", "", "", "", ""]
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", "", " "]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/lock": {
+        "tooltip": false,
+        "on-click": "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown",
+        "format": "",
+    },
+    "custom/power": {
+        "tooltip": false,
+        "on-click": "wlogout &",
+        "format": "襤"
+    }
 }
-},
-
-"pulseaudio": {
-"scroll-step": 1,
-"format": "{icon} {volume}%",
-"format-bluetooth": "{icon} {volume}%",
-"format-muted": "",
-"format-icons": {
-"headphones": "",
-"handsfree": "",
-"headset": "",
-"phone": "",
-"portable": "",
-"car": "",
-"default": ["", ""]
-},
-"on-click": "pavucontrol"
-},
-
-"temperature": {
-"critical-threshold": 90,
-"interval": 5,
-//"format": "{icon} {temperatureC}°C",
-"format": "{icon} {temperatureC}°",
-"format-icons": [
-"", // Icon: temperature-empty
-//"", // Icon: temperature-quarter
-"", // Icon: temperature-half
-//"", // Icon: temperature-three-quarters
-""  // Icon: temperature-full
-],
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/alsa": {
-"exec": "amixer get Master | sed -nre 's/.*\\[off\\].*/ muted/p; s/.*\\[(.*%)\\].*/ \\1/p'",
-"on-click": "amixer set Master toggle; pkill -x -RTMIN+11 waybar",
-"on-scroll-up": "amixer set Master 1+; pkill -x -RTMIN+11 waybar",
-"on-scroll-down": "amixer set Master 1-; pkill -x -RTMIN+11 waybar",
-"signal": 11,
-"interval": 10,
-"tooltip": false
-},
-
-"sndio": {
-"format": " {}%",
-"on-click": ""
-},
-
-"tray": {
-"icon-size": 21
-//"spacing": 10
-},
-
-"custom/arrow1": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow2": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow3": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow4": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow5": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow6": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow7": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow8": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow9": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-},
-
-"custom/arrow10": {
-"format": "",
-"tooltip": false,
-"on-click": ""
-}
-}
-
-

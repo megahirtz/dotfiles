@@ -1,6 +1,5 @@
-{ config, pkgs, nix-colors, ... }:
-
-{
+{ config, pkgs, nix-colors, ... }: {
+  imports = [ nix-colors.homeManagerModule ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "megahirtz";
@@ -21,8 +20,6 @@
 
   home.sessionVariables.NIX_PATH =
     "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
-
-  imports = [ nix-colors.homeManagerModule ];
 
   colorScheme = nix-colors.colorSchemes.dracula;
 
@@ -68,6 +65,10 @@
         tabnine.tabnine-vscode
         matklad.rust-analyzer
       ];
+    };
+    neovim = {
+      enable = true;
+      viAlias = true;
     };
   };
 
