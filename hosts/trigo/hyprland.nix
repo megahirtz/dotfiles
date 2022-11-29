@@ -13,5 +13,4 @@
     dunst
   ];
 
-  programs.hyprland.enable = true;
 }

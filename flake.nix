@@ -43,6 +43,7 @@
             nixos-hardware.nixosModules.framework
             agenix.nixosModule
             hyprland.nixosModules.default
+            { programs.hyprland.enable = true; }
           ];
         };
         nixos = lib.nixosSystem {
