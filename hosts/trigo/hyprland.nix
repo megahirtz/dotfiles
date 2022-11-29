@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, hyprland, lib, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [

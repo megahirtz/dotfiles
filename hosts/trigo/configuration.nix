@@ -20,6 +20,7 @@ in {
     ./swaywm.nix
     ./mail.nix
     ./emacs.nix
+    ./hyprland.nix
   ];
   nix = {
     package = pkgs.nixVersions.stable; # or versioned attributes like nix_2_7
@@ -71,6 +72,7 @@ in {
     "greetd/environments".text = ''
       sway
       zsh
+      hyprland
     '';
     #"greetd/gtkgreet.css".text = ''
     #  window {
