@@ -132,6 +132,12 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  # hyprland stuff
+  home.file.".config/hypr" = {
+    source = ./hyprland;
+    recursive = true;
+  };
+
   # eww stuff
   home.file.".config/eww/eww.scss".source = ./eww/eww.scss;
   home.file.".config/eww/eww.yuck".source = ./eww/eww.yuck;

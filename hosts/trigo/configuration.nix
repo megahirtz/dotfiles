@@ -72,7 +72,7 @@ in {
     "greetd/environments".text = ''
       sway
       zsh
-      hyprland
+      Hyprland
     '';
     #"greetd/gtkgreet.css".text = ''
     #  window {
