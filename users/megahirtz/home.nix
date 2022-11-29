@@ -132,5 +132,67 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  # eww stuff
+  home.file.".config/eww/eww.scss".source = ./eww/eww.scss;
+  home.file.".config/eww/eww.yuck".source = ./eww/eww.yuck;
+
+  # scripts
+  home.file.".config/eww/scripts/battery.sh" = {
+    source = ./eww/scripts/battery.sh;
+    executable = true;
+  };
+
+  home.file.".config/eww/scripts/wifi.sh" = {
+    source = ./eww/scripts/wifi.sh;
+    executable = true;
+  };
+
+  home.file.".config/eww/scripts/brightness.sh" = {
+    source = ./eww/scripts/brightness.sh;
+    executable = true;
+  };
+
+  home.file.".config/eww/scripts/workspaces.sh" = {
+    source = ./eww/scripts/workspaces.sh;
+    executable = true;
+  };
+
+  home.file.".config/eww/scripts/workspaces.lua" = {
+    source = ./eww/scripts/workspaces.lua;
+    executable = true;
+  };
+
+  # dunst stuff
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        origin = "top-left";
+        offset = "60x12";
+        separator_height = 2;
+        padding = 12;
+        horizontal_padding = 12;
+        text_icon_padding = 12;
+        frame_width = 4;
+        separator_color = "frame";
+        idle_threshold = 120;
+        font = "FantasqueSansMono Nerd Font 12";
+        line_height = 0;
+        format = ''
+          <b>%s</b>
+          %b'';
+        alignment = "center";
+        icon_position = "off";
+        startup_notification = "false";
+        corner_radius = 12;
+
+        frame_color = "#44465c";
+        background = "#303241";
+        foreground = "#d9e0ee";
+        timeout = 2;
+      };
+    };
+  };
+
   home.packages = with pkgs; [ ];
 }
