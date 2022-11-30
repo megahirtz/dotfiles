@@ -31,6 +31,8 @@
         update = "/home/megahirtz/dotfiles/update.sh";
         auser = "/home/megahirtz/dotfiles/apply-user.sh megahirtz";
         asystem = "/home/megahirt/dotfiles/apply-system.sh trigo";
+        v = "nvim -i NONE";
+        nvim = "nvim -i NONE";
       };
       history = {
         size = 10000;
@@ -53,7 +55,8 @@
       }];
       initExtra = ''
         export PATH=/home/megahirtz/.emacs.d/bin/:$PATH
-        eval "$(direnv hook zsh)"'';
+        eval "$(direnv hook zsh)"
+        export EDITOR="nvim"'';
     };
     vscode = {
       enable = true;
@@ -65,10 +68,6 @@
         tabnine.tabnine-vscode
         matklad.rust-analyzer
       ];
-    };
-    neovim = {
-      enable = true;
-      viAlias = true;
     };
   };
 
@@ -199,6 +198,72 @@
       };
     };
   };
+  home.file.".config/nvim/settings.lua".source = ./init.lua;
 
-  home.packages = with pkgs; [ ];
+  home.packages = with pkgs; [
+    rnix-lsp
+    nixfmt # Nix
+    sumneko-lua-language-server
+    stylua # Lua
+  ];
+
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      vim-nix
+      plenary-nvim
+      {
+        plugin = zk-nvim;
+        config = "require('zk').setup()";
+      }
+      {
+        plugin = catppuccin-nvim;
+        config = "colorscheme catppuccin-latte";
+      }
+      {
+        plugin = impatient-nvim;
+        config = "lua require('impatient')";
+      }
+      {
+        plugin = lualine-nvim;
+        config = "lua require('lualine').setup()";
+      }
+      {
+        plugin = telescope-nvim;
+        config = "lua require('telescope').setup()";
+      }
+      {
+        plugin = indent-blankline-nvim;
+        config = "lua require('indent_blankline').setup()";
+      }
+      {
+        plugin = nvim-lspconfig;
+        config = ''
+          lua << EOF
+          require('lspconfig').rust_analyzer.setup{}
+          require('lspconfig').sumneko_lua.setup{}
+          require('lspconfig').rnix.setup{}
+          require('lspconfig').zk.setup{}
+          EOF
+        '';
+      }
+      {
+        plugin = nvim-treesitter;
+        config = ''
+          lua << EOF
+          require('nvim-treesitter.configs').setup {
+              highlight = {
+                  enable = true,
+                  additional_vim_regex_highlighting = false,
+              },
+          }
+          EOF
+        '';
+      }
+    ];
+
+    extraConfig = ''
+      luafile ~/.config/nvim/settings.lua
+    '';
+  };
 }
