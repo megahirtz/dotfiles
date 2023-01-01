@@ -11,6 +11,7 @@
     pamixer
     brightnessctl
     dunst
+    libxkbcommon
   ];
 
 }

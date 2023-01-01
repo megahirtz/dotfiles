@@ -148,9 +148,11 @@ in {
     p7zip
     pulseaudio
     tmux
-    jellyfin-media-player
+    spotifyd
     jellycli
     deluge
+    calibre
+    nextcloud-client
   ];
 
   # Firmware updates

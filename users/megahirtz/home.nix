@@ -198,7 +198,7 @@
       };
     };
   };
-  home.file.".config/nvim/settings.lua".source = ./init.lua;
+  home.file.".config/nvim/settings.lua".source = ./neovim/init.lua;
 
   home.packages = with pkgs; [
     rnix-lsp
@@ -212,10 +212,10 @@
     plugins = with pkgs.vimPlugins; [
       vim-nix
       plenary-nvim
-      {
-        plugin = zk-nvim;
-        config = "require('zk').setup()";
-      }
+      #{
+      #  plugin = zk-nvim;
+      #  config = "require('zk').setup()";
+      #}
       {
         plugin = catppuccin-nvim;
         config = "colorscheme catppuccin-latte";
