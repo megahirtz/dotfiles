@@ -41,7 +41,6 @@ in {
   #  enable = true;
   #  channel = "https://nixos.org/channels/nixos-unstable";
   #};
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -105,7 +104,7 @@ in {
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override {
-      fonts = [ "FiraCode" "DroidSansMono" "Iosevka" "FantasqueSansMono" ];
+      fonts = [ "FiraCode" "DroidSansMono" "Iosevka" "FantasqueSansMono" "JetBrainsMono" ];
     })
     font-awesome_5
     comic-mono
@@ -147,7 +146,6 @@ in {
     gnome.zenity
     p7zip
     pulseaudio
-    tmux
     spotifyd
     jellycli
     deluge

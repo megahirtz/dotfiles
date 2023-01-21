@@ -21,7 +21,7 @@
   home.sessionVariables.NIX_PATH =
     "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
 
-  colorScheme = nix-colors.colorSchemes.dracula;
+  colorScheme = nix-colors.colorSchemes.dracula; 
 
   programs = {
     zsh = {
@@ -58,16 +58,23 @@
         eval "$(direnv hook zsh)"
         export EDITOR="nvim"'';
     };
-    vscode = {
-      enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        # Some example extensions...
-        dracula-theme.theme-dracula
-        vscodevim.vim
-        yzhang.markdown-all-in-one
-        tabnine.tabnine-vscode
-        matklad.rust-analyzer
-      ];
+    tmux = {
+        enable = true;
+        plugins = with pkgs.tmuxPlugins; [
+            sensible
+            yank
+            logging
+            { 
+                plugin = catppuccin;
+                extraConfig = ''
+                    set -g @catppuccin_flavour 'latte'
+                '';
+
+            }
+        ];
+        extraConfig =''
+            set -g mouse on
+        '';
     };
   };
 
@@ -259,6 +266,10 @@
           }
           EOF
         '';
+      }
+      {
+        plugin = neogit;
+        config = "lua require('neogit').setup()";
       }
     ];
 
