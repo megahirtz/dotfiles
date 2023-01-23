@@ -21,6 +21,7 @@ in {
     ./mail.nix
     ./emacs.nix
     ./hyprland.nix
+    ./rip.nix
   ];
   nix = {
     package = pkgs.nixVersions.stable; # or versioned attributes like nix_2_7
@@ -170,7 +171,6 @@ in {
   };
 
   programs.adb.enable = true;
-
   networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
