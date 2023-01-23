@@ -157,8 +157,6 @@ in {
   # Firmware updates
   services.fwupd.enable = true;
   services.udisks2.enable = true;
-  # Fingerprint Reader support
-  services.fprintd.enable = true;
 
   hardware.bluetooth.enable = true;
   networking.networkmanager.enable = true;
