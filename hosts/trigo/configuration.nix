@@ -151,6 +151,7 @@ in {
     deluge
     calibre
     nextcloud-client
+    gamescope
   ];
 
   # Firmware updates

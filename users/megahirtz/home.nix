@@ -59,22 +59,47 @@
         export EDITOR="nvim"'';
     };
     tmux = {
-        enable = true;
-        plugins = with pkgs.tmuxPlugins; [
-            sensible
-            yank
-            logging
-            { 
-                plugin = catppuccin;
-                extraConfig = ''
-                    set -g @catppuccin_flavour 'latte'
-                '';
-
-            }
-        ];
-        extraConfig =''
-            set -g mouse on
-        '';
+      enable = true;
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        yank
+        logging
+        { 
+          plugin = catppuccin;
+          extraConfig = ''
+          set -g @catppuccin_flavour 'latte'
+          '';
+        }
+      ];
+      extraConfig =''
+        set -g mouse on
+      '';
+    };
+    foot = {
+      enable = true;
+      server.enable = true;
+      settings = {
+        colors = {
+          foreground= "4c4f69"; # Text
+          background= "eff1f5"; # Base
+          regular0= "5c5f77";   # Subtext 1
+          regular1= "d20f39";   # red
+          regular2= "40a02b";   # green
+          regular3= "df8e1d";   # yellow
+          regular4= "1e66f5";   # blue
+          regular5= "ea76cb";   # pink
+          regular6= "179299";   # teal
+          regular7= "acb0be";   # Surface 2
+          bright0= "6c6f85";    # Subtext 0
+          bright1= "d20f39";    # red
+          bright2= "40a02b";    # green
+          bright3= "df8e1d";    # yellow
+          bright4= "1e66f5";    # blue
+          bright5= "ea76cb";    # pink
+          bright6= "179299";    # teal
+          bright7= "bcc0cc";    # Surface 1
+        };
+      };
     };
   };
 

@@ -1,5 +1,5 @@
 (defwidget bar []
-  (centerbox :orientation "v" :hexpand false :height 1504
+  (centerbox :orientation "v" :hexpand false :height "100%"
     (box :valign "start" :hexpand false :vexpand true :orientation "v" :space-evenly false
       (launch)
       (dashbutton)
@@ -278,8 +278,8 @@
   :geometry (geometry 
   :height "1080px" 
   :width "350px"
-  :x "48px"
-  :y "0px"
+  :x "52px"
+  :y "50px"
   :anchor "top left")
   :stacking "fg"
   :class "dashboard"
@@ -288,7 +288,7 @@
 (defwindow bar
   :monitor 0
   :exclusive false 
-  :geometry (geometry :height "1080px" :x "-4px" :y "0px"
+  :geometry (geometry :height "1404px" :x "4px" :y "50px"
   :width "52px"
   :anchor "top left")
   :stacking "fg"

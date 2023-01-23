@@ -57,7 +57,7 @@ button {
 
 .bar {
     background-color: $mantle;
-    border-left: 4px dotted $red;
+    border-radius: 8px;
 }
 
 .dashboard {
@@ -96,7 +96,10 @@ button {
     }
 
     calendar:indeterminate {
-        color: rgba(205, 219, 249, 0.3);
+        color: $subtext0;
+    }
+    calendar {
+        color: $text;
     }
 }
 
@@ -151,6 +154,7 @@ button {
     .slider_icon {
         font-size: 2rem;
         padding-right: 0.75rem;
+        color: $lavender;
     }
 }
 
