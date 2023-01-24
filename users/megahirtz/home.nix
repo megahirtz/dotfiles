@@ -79,6 +79,10 @@
       enable = true;
       server.enable = true;
       settings = {
+        main = {
+          font = "Comic Mono:size=7";
+          dpi-aware = "yes";
+        };
         colors = {
           foreground= "4c4f69"; # Text
           background= "eff1f5"; # Base
