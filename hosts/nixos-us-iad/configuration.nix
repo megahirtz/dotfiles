@@ -64,9 +64,11 @@
 
   services.openssh = { 
     enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
+    settings = {
+      permitRootLogin = "no";
+      passwordAuthentication = false;
+      kbdInteractiveAuthentication = false;
+    };
   };
 
   # This value determines the NixOS release from which the default
