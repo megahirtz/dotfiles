@@ -59,6 +59,7 @@
     inetutils
     mtr
     sysstat
+    git
   ];
 
   services.openssh = { 
