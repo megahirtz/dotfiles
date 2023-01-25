@@ -51,6 +51,10 @@
           inherit system;
           modules = [ ./hosts/nixos/configuration.nix agenix.nixosModule ];
         };
+        nixos-us-iad = lib.nixosSystem {
+            inherit system;
+            modules = [ ./hosts/nixos-us-iad/configuration.nix agenix.nixosModule ];
+        };
       };
       homeConfigurations = {
         megahirtz = home-manager.lib.homeManagerConfiguration {
